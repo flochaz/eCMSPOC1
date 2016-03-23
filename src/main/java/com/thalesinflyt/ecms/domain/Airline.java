@@ -1,11 +1,14 @@
 package com.thalesinflyt.ecms.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Airline.
@@ -23,7 +26,10 @@ public class Airline implements Serializable {
     @Field("icao_code")
     private String icaoCode;
     
-    public String getId() {
+    @DBRef
+    private Set<Catalog> catalogs = new HashSet<>();
+
+	public String getId() {
         return id;
     }
 
@@ -47,6 +53,14 @@ public class Airline implements Serializable {
         this.icaoCode = icaoCode;
     }
 
+    public Set<Catalog> getCatalogs() {
+		return catalogs;
+	}
+
+	public void setCatalogs(Set<Catalog> catalogs) {
+		this.catalogs = catalogs;
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) {

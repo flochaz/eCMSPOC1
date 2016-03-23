@@ -1,10 +1,20 @@
 'use strict';
 
 angular.module('ecmspoc1App').controller('TitleDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Title',
-        function($scope, $stateParams, $uibModalInstance, entity, Title) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Title', 'Catalog', 'ContentDefinition',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, Title, Catalog, ContentDefinition) {
 
         $scope.title = entity;
+        $scope.catalogs = Catalog.query();
+        $scope.contentdefinitions = ContentDefinition.query({filter: 'title-is-null'});
+        $q.all([$scope.title.$promise, $scope.contentdefinitions.$promise]).then(function() {
+            if (!$scope.title.contentDefinition || !$scope.title.contentDefinition.id) {
+                return $q.reject();
+            }
+            return ContentDefinition.get({id : $scope.title.contentDefinition.id}).$promise;
+        }).then(function(contentDefinition) {
+            $scope.contentdefinitions.push(contentDefinition);
+        });
         $scope.load = function(id) {
             Title.get({id : id}, function(result) {
                 $scope.title = result;

@@ -21,6 +21,7 @@
                     <th><span>ID</span></th>
                     <th><span>Name</span></th>
                     <th><span>PackagingType</span></th>
+                    <th><span>catalog</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -29,6 +30,9 @@
                     <td><a ui-sref="deploymentGroup.detail({id:deploymentGroup.id})">{{deploymentGroup.id}}</a></td>
                     <td>{{deploymentGroup.name}}</td>
                     <td>{{deploymentGroup.packagingType}}</td>
+                    <td>
+                        <a ui-sref="catalog.detail({id:deploymentGroup.catalog.id})">{{deploymentGroup.catalog.id}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

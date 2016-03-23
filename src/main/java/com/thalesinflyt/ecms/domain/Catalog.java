@@ -2,11 +2,14 @@ package com.thalesinflyt.ecms.domain;
 
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.thalesinflyt.ecms.domain.enumeration.CatalogStatus;
 
@@ -41,7 +44,10 @@ public class Catalog implements Serializable {
     @Field("description")
     private String description;
     
-    public String getId() {
+    @DBRef
+    private Set<Title> titles = new HashSet<>();
+
+	public String getId() {
         return id;
     }
 
@@ -105,6 +111,14 @@ public class Catalog implements Serializable {
         this.description = description;
     }
 
+    public Set<Title> getTitles() {
+		return titles;
+	}
+
+	public void setTitles(Set<Title> titles) {
+		this.titles = titles;
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) {

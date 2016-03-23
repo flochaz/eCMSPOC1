@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ecmspoc1App')
-    .controller('CatalogDetailController', function ($scope, $rootScope, $stateParams, entity, Catalog) {
+    .controller('CatalogDetailController', function ($scope, $rootScope, $stateParams, entity, Catalog, Airline, DeploymentGroup, Title) {
         $scope.catalog = entity;
         $scope.load = function (id) {
             Catalog.get({id: id}, function(result) {

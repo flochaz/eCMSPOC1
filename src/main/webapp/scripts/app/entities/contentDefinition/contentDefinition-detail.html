@@ -26,6 +26,14 @@
                     <span class="form-control-static">{{contentDefinition.version}}</span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span>deploymentGroup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="deploymentGroup.detail({id:contentDefinition.deploymentGroup.id})">{{contentDefinition.deploymentGroup.id}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('ecmspoc1App').controller('CatalogDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Catalog',
-        function($scope, $stateParams, $uibModalInstance, entity, Catalog) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Catalog', 'Airline', 'DeploymentGroup', 'Title',
+        function($scope, $stateParams, $uibModalInstance, entity, Catalog, Airline, DeploymentGroup, Title) {
 
         $scope.catalog = entity;
+        $scope.airlines = Airline.query();
+        $scope.deploymentgroups = DeploymentGroup.query();
+        $scope.titles = Title.query();
         $scope.load = function(id) {
             Catalog.get({id : id}, function(result) {
                 $scope.catalog = result;

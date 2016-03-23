@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('ecmspoc1App').controller('ContentDefinitionDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'ContentDefinition',
-        function($scope, $stateParams, $uibModalInstance, entity, ContentDefinition) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'ContentDefinition', 'DeploymentGroup',
+        function($scope, $stateParams, $uibModalInstance, entity, ContentDefinition, DeploymentGroup) {
 
         $scope.contentDefinition = entity;
+        $scope.deploymentgroups = DeploymentGroup.query();
         $scope.load = function(id) {
             ContentDefinition.get({id : id}, function(result) {
                 $scope.contentDefinition = result;

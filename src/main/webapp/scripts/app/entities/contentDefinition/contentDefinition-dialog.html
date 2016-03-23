@@ -26,6 +26,12 @@
                      />
         </div>
 
+        <div class="form-group">
+            <label for="field_deploymentGroup">deploymentGroup</label>
+            <select class="form-control" id="field_deploymentGroup" name="deploymentGroup" ng-model="contentDefinition.deploymentGroup" ng-options="deploymentGroup as deploymentGroup.id for deploymentGroup in deploymentgroups track by deploymentGroup.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

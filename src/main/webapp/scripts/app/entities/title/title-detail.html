@@ -50,6 +50,22 @@
                     <span class="form-control-static">{{title.latestModifiedDate | date:'mediumDate'}}</span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span>catalog</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="catalog.detail({id:title.catalog.id})">{{title.catalog.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>contentDefinition</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="contentDefinition.detail({id:title.contentDefinition.id})">{{title.contentDefinition.id}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

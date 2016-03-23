@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ecmspoc1App')
-    .controller('DeploymentGroupDetailController', function ($scope, $rootScope, $stateParams, entity, DeploymentGroup) {
+    .controller('DeploymentGroupDetailController', function ($scope, $rootScope, $stateParams, entity, DeploymentGroup, Catalog, ContentDefinition) {
         $scope.deploymentGroup = entity;
         $scope.load = function (id) {
             DeploymentGroup.get({id: id}, function(result) {

@@ -26,6 +26,14 @@
                     <span class="form-control-static">{{deploymentGroup.packagingType}}</span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span>catalog</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="catalog.detail({id:deploymentGroup.catalog.id})">{{deploymentGroup.catalog.id}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

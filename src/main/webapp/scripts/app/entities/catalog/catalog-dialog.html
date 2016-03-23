@@ -75,6 +75,12 @@
                      />
         </div>
 
+        <div class="form-group">
+            <label for="field_airline">airline</label>
+            <select class="form-control" id="field_airline" name="airline" ng-model="catalog.airline" ng-options="airline as airline.id for airline in airlines track by airline.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

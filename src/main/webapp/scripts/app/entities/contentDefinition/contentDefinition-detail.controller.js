@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ecmspoc1App')
-    .controller('ContentDefinitionDetailController', function ($scope, $rootScope, $stateParams, entity, ContentDefinition) {
+    .controller('ContentDefinitionDetailController', function ($scope, $rootScope, $stateParams, entity, ContentDefinition, DeploymentGroup) {
         $scope.contentDefinition = entity;
         $scope.load = function (id) {
             ContentDefinition.get({id: id}, function(result) {

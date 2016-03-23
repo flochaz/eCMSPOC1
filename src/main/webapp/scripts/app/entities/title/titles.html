@@ -24,6 +24,8 @@
                     <th><span>ExhibitionEndDate</span></th>
                     <th><span>CreationDate</span></th>
                     <th><span>LatestModifiedDate</span></th>
+                    <th><span>catalog</span></th>
+                    <th><span>contentDefinition</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,6 +37,12 @@
                         <td>{{title.exhibitionEndDate | date:'mediumDate'}}</td>
                         <td>{{title.creationDate | date:'mediumDate'}}</td>
                         <td>{{title.latestModifiedDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="catalog.detail({id:title.catalog.id})">{{title.catalog.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="contentDefinition.detail({id:title.contentDefinition.id})">{{title.contentDefinition.id}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

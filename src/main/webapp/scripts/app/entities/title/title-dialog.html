@@ -60,6 +60,18 @@
                 </div>
         </div>
 
+        <div class="form-group">
+            <label for="field_catalog">catalog</label>
+            <select class="form-control" id="field_catalog" name="catalog" ng-model="title.catalog" ng-options="catalog as catalog.id for catalog in catalogs track by catalog.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_contentDefinition">contentDefinition</label>
+            <select class="form-control" id="field_contentDefinition" name="contentDefinition" ng-model="title.contentDefinition" ng-options="contentDefinition as contentDefinition.id for contentDefinition in contentdefinitions | orderBy:'id' track by contentDefinition.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

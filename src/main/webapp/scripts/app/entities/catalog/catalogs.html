@@ -26,6 +26,7 @@
                     <th><span>EndDate</span></th>
                     <th><span>CatalogShipmentDeadline</span></th>
                     <th><span>Description</span></th>
+                    <th><span>airline</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,6 +40,9 @@
                         <td>{{catalog.endDate | date:'mediumDate'}}</td>
                         <td>{{catalog.catalogShipmentDeadline | date:'mediumDate'}}</td>
                     <td>{{catalog.description}}</td>
+                    <td>
+                        <a ui-sref="airline.detail({id:catalog.airline.id})">{{catalog.airline.id}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
