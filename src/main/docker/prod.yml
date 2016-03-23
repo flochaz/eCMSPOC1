@@ -1,0 +1,7 @@
+ecmspoc1-mongodb:
+  container_name: ecmspoc1-mongodb
+  image: mongo:3.0.7
+  # volumes:
+  #   - ~/volumes/jhipster/eCMSPOC1/mongodb/:/data/db/
+  ports:
+    - "27017:27017"

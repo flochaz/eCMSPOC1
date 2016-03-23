@@ -1,0 +1,69 @@
+
+entity Airline {
+        id String,
+        name String,
+        icaoCode String
+        }
+
+enum CatalogStatus {
+    INCOMPLETE, PACKAGED, SHIPPED, CANCELED
+}
+
+entity Catalog {
+  name String,
+  status CatalogStatus,
+  id String,
+  lastModified LocalDate,
+  startDate LocalDate,
+        endDate LocalDate,
+        catalogShipmentDeadline LocalDate,
+        description String
+}
+
+entity DeploymentGroup {
+	name String,
+    id String,
+    packagingType String
+}
+
+entity ContentDefinition {
+	name String,
+    version Integer,
+    id String
+}
+
+entity Title {
+ name String,
+ id String,
+ exhibitionStartDate LocalDate,
+ exhibitionEndDate LocalDate,
+ creationDate LocalDate,
+ latestModifiedDate LocalDate
+}
+
+relationship OneToMany {
+Airline{catalog} to Catalog
+}
+
+relationship OneToMany {
+  Catalog{deploymentGroup} to DeploymentGroup
+}
+
+relationship OneToMany {
+  DeploymentGroup{contentDefinition} to ContentDefinition
+}
+
+relationship OneToMany {
+  Catalog{title} to Title
+}
+
+relationship OneToOne {
+	Title{contentDefinition} to ContentDefinition
+}
+
+service Airline with serviceClass
+service Catalog with serviceClass
+service DeploymentGroup with serviceClass
+service ContentDefinition with serviceClass
+service Title with serviceClass
+	
