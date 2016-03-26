@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,7 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @IntegrationTest
 public class TitleResourceIntTest {
-
+	
+	public static final int BULK_NUMBER = 10000;
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
 
@@ -73,6 +75,7 @@ public class TitleResourceIntTest {
     private MockMvc restTitleMockMvc;
 
     private Title title;
+    private List<Title> listOfTitles;
 
     @PostConstruct
     public void setup() {
@@ -93,6 +96,7 @@ public class TitleResourceIntTest {
         title.setExhibitionEndDate(DEFAULT_EXHIBITION_END_DATE);
         title.setCreationDate(DEFAULT_CREATION_DATE);
         title.setLatestModifiedDate(DEFAULT_LATEST_MODIFIED_DATE);
+        listOfTitles = createListOfTitles();
     }
 
     @Test
@@ -116,8 +120,28 @@ public class TitleResourceIntTest {
         assertThat(testTitle.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
         assertThat(testTitle.getLatestModifiedDate()).isEqualTo(DEFAULT_LATEST_MODIFIED_DATE);
     }
-
+    
     @Test
+    public void createBulkTitles() throws Exception {
+        int databaseSizeBeforeCreate = titleRepository.findAll().size();
+
+        // Create the Titles
+        
+        
+        
+        restTitleMockMvc.perform(post("/api/titlesbulk")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(listOfTitles)))
+                .andExpect(status().isCreated());
+
+        // Validate the Title in the database
+        List<Title> titles = titleRepository.findAll();
+        assertThat(titles).hasSize(databaseSizeBeforeCreate + BULK_NUMBER);
+    }
+
+    
+
+	@Test
     public void getAllTitles() throws Exception {
         // Initialize the database
         titleRepository.save(title);
@@ -187,6 +211,31 @@ public class TitleResourceIntTest {
         assertThat(testTitle.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
         assertThat(testTitle.getLatestModifiedDate()).isEqualTo(UPDATED_LATEST_MODIFIED_DATE);
     }
+    
+    @Test
+    public void updateBulkTitles() throws Exception {
+        // Initialize the database
+        List<Title> savedTitles = titleRepository.save(listOfTitles);
+
+		int databaseSizeBeforeUpdate = titleRepository.findAll().size();
+
+        // Update the title
+		for(Title toUpdateTitle: savedTitles){
+			toUpdateTitle.setName(UPDATED_NAME+"_updated");
+		}
+
+        restTitleMockMvc.perform(put("/api/titlesbulk")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(savedTitles)))
+                .andExpect(status().isOk());
+
+        // Validate the Title in the database
+        List<Title> titles = titleRepository.findAll();
+        assertThat(titles).hasSize(databaseSizeBeforeUpdate);
+        Title testTitle = titles.get(titles.size() - 1);
+        assertThat(testTitle.getName()).contains("_updated");
+
+    }
 
     @Test
     public void deleteTitle() throws Exception {
@@ -204,4 +253,18 @@ public class TitleResourceIntTest {
         List<Title> titles = titleRepository.findAll();
         assertThat(titles).hasSize(databaseSizeBeforeDelete - 1);
     }
+    
+    private List<Title> createListOfTitles() {
+		List<Title> newTitles = new ArrayList<>();
+        for(int i = 1;i <= BULK_NUMBER; i++ ){
+	        Title tmpTitle = new Title();
+	        tmpTitle.setName(DEFAULT_NAME+"_"+i);
+	        tmpTitle.setExhibitionStartDate(DEFAULT_EXHIBITION_START_DATE);
+	        tmpTitle.setExhibitionEndDate(DEFAULT_EXHIBITION_END_DATE);
+	        tmpTitle.setCreationDate(DEFAULT_CREATION_DATE);
+	        tmpTitle.setLatestModifiedDate(DEFAULT_LATEST_MODIFIED_DATE);
+	        newTitles.add(tmpTitle);
+        }
+        return newTitles;
+	}
 }

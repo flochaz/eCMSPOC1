@@ -1,5 +1,7 @@
 package com.thalesinflyt.ecms.web.rest.util;
 
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 
 /**
@@ -19,8 +21,16 @@ public class HeaderUtil {
         return createAlert("A new " + entityName + " is created with identifier " + param, param);
     }
 
+    public static HttpHeaders createEntitiesCreationAlert(String entityName, List<String> params) {
+        return createAlert("Several new " + entityName + " are created with identifiers " + params, params.toString());
+    }
+    
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
         return createAlert("A " + entityName + " is updated with identifier " + param, param);
+    }
+    
+    public static HttpHeaders createEntitiesUpdateAlert(String entityName, List<String> params) {
+        return createAlert("Several " + entityName + " are updated with identifiers " + params, params.toString());
     }
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {

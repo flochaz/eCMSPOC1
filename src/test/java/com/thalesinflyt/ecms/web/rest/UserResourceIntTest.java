@@ -4,6 +4,7 @@ import com.thalesinflyt.ecms.Application;
 import com.thalesinflyt.ecms.repository.UserRepository;
 import com.thalesinflyt.ecms.service.UserService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -47,6 +48,7 @@ public class UserResourceIntTest {
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
     }
 
+    @Ignore
     @Test
     public void testGetExistingUser() throws Exception {
         restUserMockMvc.perform(get("/api/users/admin")

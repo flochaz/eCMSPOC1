@@ -1,7 +1,7 @@
 # ===================================================================
-# Spring Boot configuration.
+# Spring Boot configuration for the "dev" profile.
 #
-# This configuration is used for unit/integration tests.
+# This configuration overrides the application.yml file.
 # ===================================================================
 
 # ===================================================================
@@ -10,51 +10,49 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+
 spring:
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use gulp + BrowserSync for livereload
     data:
         mongodb:
-            host: localhost
-            port: 27117
-            database: eCMSPOC1
+            uri: mongodb://localhost:27017
+            database: eCMSPOC1-test2
     mail:
         host: localhost
-    mvc:
-        favicon:
-            enabled: false
+    messages:
+        cache-seconds: 1
     thymeleaf:
-        mode: XHTML
+        cache: false
 
 liquibase:
-    contexts: test
-
-security:
-    basic:
-        enabled: false
+    contexts: dev
 
 server:
-    port: 10344
-    address: localhost
+    port: 8080
 
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
 
 jhipster:
-    async:
-        corePoolSize: 2
-        maxPoolSize: 50
-        queueCapacity: 10000
     security:
         rememberme:
             # security key (this key should be unique for your application, and kept secret)
             key: 02c650b96dd4ec152f671ed444ebe5c5528ee229
+    mail: # specific JHipster mail property, for standard properties see MailProperties
+        from: eCMSPOC1-test2@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
-    swagger:
-        title: eCMSPOC1 API
-        description: eCMSPOC1 API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contact:
-        license:
-        licenseUrl:
+        spark:
+            enabled: false
+            host: localhost
+            port: 9999
+        graphite:
+            enabled: false
+            host: localhost
+            port: 2003
+            prefix: eCMSPOC1-test2

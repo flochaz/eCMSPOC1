@@ -32,6 +32,16 @@ public class TitleService {
     }
 
     /**
+     * Save a bulk of titles.
+     * @return the persisted entities
+     */
+    public List<Title> save(List<Title> titles) {
+        log.debug("Request to save {} Titles", titles.size());
+        List<Title> result = titleRepository.save(titles);
+        return result;
+    }
+    
+    /**
      *  get all the titles.
      *  @return the list of entities
      */
@@ -57,5 +67,13 @@ public class TitleService {
     public void delete(String id) {
         log.debug("Request to delete Title : {}", id);
         titleRepository.delete(id);
+    }
+    
+    /**
+     *  delete all the titles.
+     */
+    public void deleteAll() {
+        log.debug("Request to delete all Titles");
+        titleRepository.deleteAll();
     }
 }

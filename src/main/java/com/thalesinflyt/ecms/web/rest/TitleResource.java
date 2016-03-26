@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,21 @@ public class TitleResource {
             .headers(HeaderUtil.createEntityCreationAlert("title", result.getId().toString()))
             .body(result);
     }
+    
+    /**
+     * POST  /titles -> Create a list of new titles.
+     */
+    @RequestMapping(value = "/titlesbulk",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Title>> createTitle(@RequestBody List<Title> titles) throws URISyntaxException {
+        log.debug("REST request to save {} Title", titles.size());
+        List<Title> result = titleService.save(titles);
+        return ResponseEntity.created(new URI("/api/titles/"))
+                .headers(HeaderUtil.createEntityCreationAlert("title", "0"))
+                .body(result);
+    }
 
     /**
      * PUT  /titles -> Updates an existing title.
@@ -64,6 +80,21 @@ public class TitleResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("title", title.getId().toString()))
             .body(result);
+    }
+    
+    /**
+     * PUT  /titles -> Updates a list of existing titles.
+     */
+    @RequestMapping(value = "/titlesbulk",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Title>> updateTitle(@RequestBody List<Title> titles) throws URISyntaxException {
+        log.debug("REST request to update {} Titles", titles.size());
+        List<Title> result = titleService.save(titles);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert("title", "0"))
+                .body(result);
     }
 
     /**
@@ -107,4 +138,5 @@ public class TitleResource {
         titleService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("title", id.toString())).build();
     }
+    
 }
